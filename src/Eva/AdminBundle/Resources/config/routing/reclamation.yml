@@ -1,0 +1,30 @@
+reclamation:
+    path:     /
+    defaults: { _controller: "EvaAdminBundle:Reclamation:index" }
+
+reclamation_show:
+    path:     /{id}/show
+    defaults: { _controller: "EvaAdminBundle:Reclamation:show" }
+
+reclamation_new:
+    path:     /new
+    defaults: { _controller: "EvaAdminBundle:Reclamation:new" }
+
+reclamation_create:
+    path:     /create
+    defaults: { _controller: "EvaAdminBundle:Reclamation:create" }
+    methods:  POST
+
+reclamation_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EvaAdminBundle:Reclamation:edit" }
+
+reclamation_update:
+    path:     /{id}/update
+    defaults: { _controller: "EvaAdminBundle:Reclamation:update" }
+    methods:  [POST, PUT]
+
+reclamation_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EvaAdminBundle:Reclamation:delete" }
+    methods:  [POST, DELETE]

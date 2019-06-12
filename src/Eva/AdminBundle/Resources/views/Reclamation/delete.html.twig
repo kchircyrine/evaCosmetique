@@ -1,0 +1,19 @@
+<div class="modal-dialog">
+    <div class="modal-content widget tasks-widget">
+        <div class="modal-header widget-head br-red">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h4 class="modal-title">Supprimer Réclamation</h4>
+        </div>
+        <div class="modal-body">
+            Voulez-vous vraiment continuer?
+        </div>
+        <div class="modal-footer">
+            {{ form_start(delete_form) }}
+            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" aria-hidden="true">Cancel</button>
+
+            {{ form_widget(delete_form.submit,{'attr': {'class': 'btn btn-danger btn-sm'}}) }}
+
+        </div>
+        {{ form_end(delete_form) }}
+    </div>
+</div>

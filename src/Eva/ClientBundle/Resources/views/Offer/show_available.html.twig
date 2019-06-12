@@ -1,0 +1,119 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+  
+    {% if offers|length >0 %}
+        <section id="latest2">
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <div id="grid" class="container">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h3>
+                                            Les produits en promotion </h3>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- Controls -->
+                                        <div class="controls pull-right hidden-xs">
+                                            <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example3"
+                                               data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#carousel-example3"
+                                               data-slide="next"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="carousel-example3" class="carousel slide hidden-xs" data-ride="carousel">
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <div class="row">
+                                                <ul class="thumbnails">
+                                                    {% for offer in offers |slice(0,4) %}  
+                                                         {% for product in offer.offer.products %}
+                                                        <li id="test" style="margin-left: 45px;" class="span3">
+                                                           
+                                                            <a class="prdocutname" href="#">{{product.name|title}}</a>
+                                                            <div class="thumbnail">
+                                                                <span class="sale tooltip-test" > </span>
+                                                                <a href="product.html">
+                                                                    <img style="height:180px;width:280px" alt="" src="{{app.request.basepath}}/uploads/product/{{offer.imageDefault.url}}"></a>
+                                                                <div class="caption">
+                                                                    <div class="price pull-left">
+                                                                        <span class="oldprice"> {{product.price}} TND </span>
+                                                                        <span class="newprice"> {{(product.price*(100-offer.offer.percent))/100}} TND </span>
+                                                                    </div>
+                                                                    <a OnClick="addToCart({{product.id}});" class="cartadd pull-right tooltip-test" title="Add to Cart"> Ajout au panier </a>
+                                                                    <span class="links pull-left"><a class="info" href="{{ path('show_detail', {'id': product.id}) }}">info</a>
+                                                                        <a class="wishlist" OnClick="addToWishlist({{product.id}});" href="#wishlist">wishlist</a>
+                                                                        <a class="compare" href="compare.html">comparer</a>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                             {% endfor %}
+                                                    {% endfor %}
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                        {% if offers|length>4 %}
+                                            <div class="item">
+                                                <div class="row">
+                                                    <ul class="thumbnails">
+                                                        {% for offer in offers |slice(4, 8) %}
+                                                            {% for product in offer.offer.products %}
+                                                           <li id="test" style="margin-left: 45px;" class="span3">
+                                                           
+                                                            <a class="prdocutname" href="#">{{product.name|title}}</a>
+                                                            <div class="thumbnail">
+                                                                <span class="sale tooltip-test" > </span>
+                                                                <a href="product.html">
+                                                                    <img style="height:180px;width:280px" alt="" src="{{app.request.basepath}}/uploads/product/{{offer.imageDefault.url}}"></a>
+                                                                <div class="caption">
+                                                                    <div class="price pull-left">
+                                                                        <span class="oldprice"> {{product.price}} TND </span>
+                                                                        <span class="newprice"> {{(product.price*(100-offer.percent))/100}} TND </span>
+                                                                    </div>
+                                                                    <a OnClick="addToCart({{product.id}});" class="cartadd pull-right tooltip-test" title="Add to Cart"> Ajout au panier </a>
+                                                                    <span class="links pull-left"><a class="info" href="{{ path('show_detail', {'id': product.id}) }}">info</a>
+                                                                        <a OnClick="addToWishlist({{product.id}});" class="wishlist" href="wishlist.html">wishlist</a>
+                                                                        <a class="compare" href="compare.html">comparer</a>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                         {% endfor %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
+
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+        < script >
+                $(document).ready(function () {
+            $('.cartadd').on('click', function () {
+
+                alert("**********");
+            });
+
+        });
+    </script>
+
+{% endblock %} 

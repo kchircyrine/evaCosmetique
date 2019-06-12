@@ -1,0 +1,92 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    {% if newestProducts|length >0 %}
+        <section id="latest3">
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <div id="grid" class="container">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h3>
+                                            Les nouveaux produits</h3>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- Controls -->
+                                        <div class="controls pull-right hidden-xs">
+                                            <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example2"
+                                               data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#carousel-example2"
+                                               data-slide="next"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="carousel-example2" class="carousel slide hidden-xs" data-ride="carousel">
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <div class="row">
+                                                <ul class="thumbnails">
+                                                    {% for product in newestProducts |slice(0,4) %}  
+                                                        <li  id="test" style="margin-left: 45px;" class="span3">
+                                                            <a  class="prdocutname" href="#">{{product.newproduct.name|title}}</a>
+                                                            <div class="thumbnail">
+                                                                <span class="sale tooltip-test" >Sale</span>
+                                                                <a href="product.html">
+                                                                    <img style="height:180px;width:280px" alt="" src="{{app.request.basepath}}/uploads/product/{{product.imageDefault.url}}"></a>
+                                                                <div data-name="{{product.newproduct.id}}" class="caption">
+                                                                    <div class="price pull-left">
+                                                                        <span class="newprice"> {{product.newproduct.price}} TND</span>
+                                                                    </div>
+                                                                    <a OnClick="addToCart({{product.newproduct.id}});" class="cartadd pull-right tooltip-test" title="Add to Cart"> Add to Cart </a>
+                                                                    <span class="links pull-left"><a class="info" href="{{ path('show_detail', {'id': product.newproduct.id}) }}">info</a>
+                                                                        <a OnClick="addToWishlist({{product.newproduct.id}});" class="wishlist" href="#wishlist">wishlist</a>
+                                                                        <a class="compare" href="compare.html">compare</a>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                        {% if newestProducts|length>4 %}
+                                            <div class="item">
+                                                <div class="row">
+                                                    <ul class="thumbnails">
+                                                        {% for product in newestProducts |slice(4, 8) %} 
+                                                            <li  id="test" style="margin-left: 45px;" class="span3">
+                                                                <a   class="prdocutname" href="#">{{product.newproduct.name|title}}</a>
+                                                                <div class="thumbnail">
+                                                                    <img style="height:180px;width:280px" alt="" src="{{app.request.basepath}}/uploads/product/{{product.imageDefault.url}}"></a>
+                                                                    <div data-name="{{product.newproduct.id}}" class="caption">
+                                                                        <div class="price pull-left">
+                                                                            <span class="newprice"> {{product.newproduct.price}} TND</span>
+                                                                        </div>
+                                                                        <a OnClick="addToCart({{product.newproduct.id}});"  class="cartadd pull-right tooltip-test" title="Add to Cart"> Add to Cart </a>
+                                                                        <span class="links pull-left"><a class="info" href="{{ path('show_detail', {'id': product.newproduct.id}) }}">info</a>
+                                                                            <a OnClick="addToWishlist({{product.newproduct.id}});" class="wishlist" href="#wishlist">wishlist</a>
+                                                                            <a class="compare" href="compare.html">compare</a>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </li>  
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}

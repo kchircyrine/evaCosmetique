@@ -1,0 +1,293 @@
+{% extends 'EvaClientBundle:Layout:layout2.html.twig' %}
+
+{% block stylesheet %}
+    {{ parent () }}
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="{{asset('bundles/evaclient/css/jquery.gritter.css')}}" />     
+      <script type="text/javascript" src="{{asset('bundles/evaclient/js/jquery.gritter.js')}}"></script>
+    
+{% endblock %}
+
+
+{% block detail %}
+    <div id="maincontainer">
+        <section id="product">
+            <div class="container">
+
+                <!-- Product Details-->
+                <div class="row">
+                    <div class="span5">
+                        <ul class="thumbnails mainimage">
+                            {% for image in product.images %}
+                                <li class="span5">
+                                    <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="{{app.request.basepath}}/uploads/product/{{image.url}}">
+                                        <img alt="" src="{{app.request.basepath}}/uploads/product/{{image.url}}">
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <ul class="thumbnails mainimage">
+                            {% for image in product.images %}
+                                <li class="producthtumb">
+                                    <a class="thumbnail" href="#">
+                                        <img alt="" src="{{app.request.basepath}}/uploads/product/{{image.url}}">
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                    <div class="span7">
+                        <div class="row">
+                            <div class="span7">
+                                <h1 class="productname"><span class="bgnone">{{product.name}}</span></h1>
+                                <div class="productprice">
+                                    {% if offer is null %}
+                                        <div class="prnewprice">{{product.price}} TND </div>
+                                    {% else %}
+                                        <div class="proldprice">{{product.price}} TND</div>
+                                        <div class="prnewprice">{{(product.price*(100-offer.percent))/100}} TND</div>
+                                    {% endif %}
+                                </div>
+                                <div class="quantitybox">
+                                    <a OnClick="addToCart({{product.id}});" class="btn btn-success pull-left" href="#">Ajout au panier</a>
+                                    <div class="links  productlinks">
+                                        <a OnClick="addToWishlist({{product.id}});" class="wishlist" href="wishlist.html">wishlist</a>
+                                        <a class="compare" href="compare.html">comparer</a>
+                                    </div>
+                                </div>
+                                <div class="productdesc">
+                                    <ul class="nav nav-tabs" id="myTab">
+                                        <li class="active"><a href="#description">Description</a>
+                                        </li>
+                                        <li><a href="#specification">Spécification</a>
+                                        </li>
+                                        <li><a href="#review">Composition</a>
+                                        </li>
+                                        <li><a href="#producttag">Utilisation</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="description">
+                                            {{product.description}}
+                                        </div>
+                                        <div class="tab-pane " id="specification">
+                                            <ul class="productinfo">
+                                                <li>
+                                                    <span class="productinfoleft"> Marque:</span> {{product.marque.name}} </li>
+                                                <li>
+                                                    <span class="productinfoleft"> Référence:</span> {{product.reference}} </li>
+                                                <li>
+                                                    <span class="productinfoleft"> Disponibilité: </span>
+                                                    {% if product.quantity >=1 %} En Stock {% else %} non disponible {% endif %}
+                                                </li>
+
+
+                                                {% if offer is not null %}
+                                                    <li>
+                                                        <span class="productinfoleft"> Prix avant promo:</span> {{product.price}} TND </li>
+                                                    <li>
+
+                                                    <li>
+                                                        <span class="productinfoleft"> Prix aprés promo:</span> {{(product.price*(100-offer.percent))/100}} TND </li>
+                                                    <li>
+
+                                                    {% else %}
+                                                    <li>
+                                                        <span class="productinfoleft"> Prix:</span> {{product.price}} TND </li>
+                                                    <li>
+
+                                                    {% endif %}
+
+
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane" id="review">
+                                            <ul class="reveiw">
+                                                <li>
+                                                    <p>{{product.composition}} </p>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                        <div class="tab-pane" id="producttag">
+                                            <p> 
+                                                {{product.userGuide}}
+                                            </p>
+                                            <ul class="tags">
+                                                {% for tag in product.tags %}
+                                                    <li><a href="#">{{tag.name}}</a>
+                                                    {% endfor %}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Description tab & comments-->
+
+            </div>
+        </section>
+        <!--  Related Products-->
+        <section id="related">
+            <div class="container">
+                <h1 class="headingfull"><span>Related Products</span></h1>
+                <section id="thumbnails">
+                    <ul class="thumbnails">
+                        <li class="span3">
+                            <a href="#" class="prdocutname">First Fashion Fabrics</a>
+                            <div class="thumbnail">
+                                <span  class="sale tooltip-test">Sale</span>
+                                <a href="product.html"><img src="{{asset('bundles/evaclient/img/product-l1.jpg')}}" alt=""></a>
+                                <div class="caption">
+                                    <div class="price pull-left">
+                                        <span class="oldprice">$2225.00</span>
+                                        <span class="newprice">$2225.00</span>
+                                    </div>
+                                    <a  class="cartadd pull-right tooltip-test" data-original-title="Add to Cart"> Add to Cart </a>
+                                    <div class="links pull-left"><a href="product.html" class="info">info</a>
+                                        <a href="wishlist.html" class="wishlist">wishlist</a>
+                                        <a href="compare.html" class="compare">compare</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="span3">
+                            <a href="#" class="prdocutname">First Fashion Fabrics</a>
+                            <div class="thumbnail">
+                                <a href="product.html">
+                                    <img src="{{asset('bundles/evaclient/img/product-l2.jpg')}}" alt=""></a>
+                                <div class="caption">
+                                    <div class="price pull-left">
+                                        <span class="oldprice">$2225.00</span>
+                                        <span class="newprice">$2225.00</span>
+                                    </div>
+                                    <a class="cartadd pull-right tooltip-test" data-original-title="Add to Cart"> Add to Cart </a>
+                                    <div class="links pull-left"><a href="product.html" class="info">info</a>
+                                        <a href="wishlist.html" class="wishlist">wishlist</a>
+                                        <a href="compare.html" class="compare">compare</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="span3">
+                            <a href="#" class="prdocutname">First Fashion Fabrics </a>
+                            <div class="thumbnail">
+                                <a href="product.html">
+                                    <img src="{{asset('bundles/evaclient/img/product-l1.jpg')}}" alt=""></a>
+                                <div class="caption">
+                                    <div class="price pull-left">
+                                        <span class="oldprice">$2225.00</span>
+                                        <span class="newprice">$2225.00</span>
+                                    </div>
+                                    <a class="cartadd pull-right tooltip-test" data-original-title="Add to Cart"> Add to Cart </a>
+                                    <div class="links pull-left"><a href="product.html" class="info">info</a>
+                                        <a href="wishlist.html" class="wishlist">wishlist</a>
+                                        <a href="compare.html" class="compare">compare</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="span3">
+                            <a href="#" class="prdocutname">First Fashion Fabrics</a>
+                            <div class="thumbnail">
+                                <a href="product.html"><img src="{{asset('bundles/evaclient/img/product-l2.jpg')}}" alt=""></a>
+                                <div class="caption">
+                                    <div class="price pull-left">
+                                        <span class="oldprice">$2225.00</span>
+                                        <span class="newprice">$2225.00</span>
+                                    </div>
+                                    <a class="cartadd pull-right tooltip-test" data-original-title="Add to Cart"> Add to Cart </a>
+                                    <div class="links pull-left"><a href="product.html" class="info">info</a>
+                                        <a href="wishlist.html" class="wishlist">wishlist</a>
+                                        <a href="compare.html" class="compare">compare</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    
+     <script>
+
+
+                            function addToCart($id) {
+                                $.ajax({
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    url: '../addcart/' + $id,
+                                    beforeSend: function (xhr) {
+
+                                    },
+                                    success: function (data) {
+
+                                        //if (data.test === true) {
+
+                                            $.gritter.add({
+                                                // (string | mandatory) the heading of the notification
+                                                title: 'Ajout au panier!',
+                                                // (string | mandatory) the text inside the notification
+                                                text: data["name"] + 'a été ajouté à <a href="{{ path('show_cart') }}" style="text-decoration : underline;color:#ccc">votre panier</a>',
+                                                // (string | optional) the image to display on the left
+                                                image: '../uploads/product/' + data["image"],
+                                                // (bool | optional) if you want it to fade out on its own or just sit there
+                                                sticky: false,
+                                                // (int | optional) the time you want it to be alive for before fading out
+                                                time: ''
+                                            });
+
+                                        //}
+                                    }
+                                });
+                            }
+
+
+
+                            function addToWishlist($id) {
+                                $.ajax({
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    url: '../app_dev.php/addwishlist/' + $id,
+                                    beforeSend: function (xhr) {
+
+                                    },
+                                    success: function (data) {
+
+                                        //if (data.test === true) {
+                                            $.gritter.add({
+                                                // (string | mandatory) the heading of the notification
+                                                title: 'Ajout à la liste des souhaits!',
+                                                // (string | mandatory) the text inside the notification
+                                                text: data["name"] + 'a été ajouté à <a href="{{ path('show_wishlist') }}" style="text-decoration : underline;color:#ccc">votre liste des souhaits </a>',
+                                                // (string | optional) the image to display on the left
+                                                image: '../uploads/product/' + data["image"],
+                                                // (bool | optional) if you want it to fade out on its own or just sit there
+                                                sticky: false,
+                                                // (int | optional) the time you want it to be alive for before fading out
+                                                time: ''
+                                            });
+
+                                        //}
+
+                                    }
+                                });
+                            }
+
+
+
+                        </script>
+    
+    
+{% endblock %}

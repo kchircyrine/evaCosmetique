@@ -1,0 +1,82 @@
+{% extends 'EvaAdminBundle:Layout:layout.html.twig' %}
+{%block title %}
+    <h2><i class="fa fa-desktop lblue"></i>Gestion des Offres</h2>
+{% endblock%}
+{% block body -%}
+    <div class="main-content">
+        <div class="container">
+            <div class="page-content">
+                <!-- Heading -->
+                <div class="single-head">
+                    <!-- Heading -->
+                    <h3 class="pull-left"><i class="fa fa-table purple"></i>Liste des Offres</h3>                   
+                    <a href="#addModal"  class="btn btn-success btn-sm pull-right" data-toggle="modal" >
+                        <i class="fa fa-plus-circle"></i>Nouvel Offre</a>
+                    <div class="clearfix"></div>
+                    <!-- Add Modal -->
+                    <div id="addModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
+                        {{ render(controller('EvaAdminBundle:Offer:new'))  }}
+                    </div>
+                </div>
+                <!-- Table Page -->
+                <div class="page-tables">
+                    <!-- Table -->
+                    <div class="table-responsive">
+                        <table cellpadding="0" cellspacing="0" border="0" id="data-table" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Pourcentage</th>
+                                    <th>Date de Début</th>
+                                    <th>Date de Fin</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entity in entities %}
+                                    <tr>
+                                        <td>{{ entity.id }}</td>
+                                        <td>{{ entity.percent }}</td>
+                                        <td>{% if entity.dateStart %}{{ entity.dateStart|date('Y-m-d') }}{% endif %}</td>
+                                        <td>{% if entity.dateEnd %}{{ entity.dateEnd|date('Y-m-d') }}{% endif %}</td>
+                                        <td>
+                                            <a href="#detailModal{{entity.id}}" class="btn-info btn-sm" data-toggle="modal">
+                                                <i class="fa fa-eye  "></i> Details</a>
+                                            <div id="detailModal{{entity.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                {{ render(controller('EvaAdminBundle:Offer:show',{ 'id': entity.id } ))  }}
+                                            </div>
+                                            <a href="#editModal{{entity.id}}"  class="btn-warning btn-sm" data-toggle="modal">
+                                                <i class="fa fa-edit "></i> Edit</a>
+                                            <div id="editModal{{entity.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                {{ render(controller('EvaAdminBundle:Offer:edit',{ 'id': entity.id } ))  }}
+                                            </div>
+                                            <a href="#deleteModal{{entity.id}}"  class="btn-danger btn-sm" data-toggle="modal">
+                                                <i class="fa fa-trash-o"></i> Delete</a>
+                                            <div id="deleteModal{{entity.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                {{ render(controller('EvaAdminBundle:Offer:remove',{ 'id': entity.id } ))  }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        /* ****************************************** */
+        /* Data Table JS */
+        /* ****************************************** */
+
+        $(document).ready(function () {
+            $('#data-table').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+        });
+
+    </script>
+{% endblock %}

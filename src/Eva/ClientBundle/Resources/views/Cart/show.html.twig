@@ -1,0 +1,238 @@
+{% extends 'EvaClientBundle:Layout:layout2.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link href="{{asset('bundles/evaclient/css/compiled.min.css')}}" rel="stylesheet"> 
+    
+{% endblock %}
+
+
+{% block detail %}
+    <div id="maincontainer">
+        <section id="login">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Home</a>
+                        <span class="divider">/</span>
+                    </li>
+                    <li>
+                        <a href="#">Account</a>
+                        <span class="divider">/</span>
+                    </li>
+                    <li class="active"> My Wishlist</li>
+                </ul>
+                <div class="row">
+
+                    <!-- Account Login-->
+                    <div class="span12">
+                        <h1 class="headingmain"><span>My Wish List</span></h1>
+                        <div class="cart-info">
+                            <section id="table-cart">
+                                <h2 class="doc-title">Shopping Cart table </h2>
+
+                                <div class="table-responsive">
+                                    <table class="table product-table">
+                                        <!--Table head-->
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Référence</th>
+                                                <th>Nom</th>
+                                                <th>Prix</th>
+                                                <th>QTY</th>
+                                                <th>Price</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <!--/Table head-->
+
+                                        <!--Table body-->
+                                        <tbody>
+                                            {% for product in products %}
+                                                <!--First row-->
+                                                <tr id="{{product.id}}">
+                                                    <th style="height:150px;width:200px" scope="row">
+                                                        <img style="height:150px;width:200px" src="{{app.request.basepath}}/uploads/product/{{product.defaultImage.url}}" alt="Shoes" class="img-fluid">
+                                                    </th>
+                                                    <td style="vertical-align: middle;">
+                                                        <h5><strong>{{product.reference}}</strong></h5>
+                                                        <p class="text-muted">by {{product.marque.name}}</p>
+                                                    </td>
+                                                    <td style="width:120px;padding: 0;vertical-align: middle;" >{{product.name}}</td>
+                                                    {% if product.availableOffer is null %}
+                                                        <td class="unitPrice" style="padding: 0;vertical-align: middle;" >{{product.price}} TND</td>
+                                                    {% else %}
+                                                        <td class="unitPrice" style="padding: 0;vertical-align: middle;" >{{(product.price*(100-product.availableOffer.percent))/100}} TND</td>
+                                                    {% endif %}
+                                                    <td id="two" style="padding: 0;vertical-align: middle;">
+                                                        <span class="qty">{{cart[product.id]}}</span>
+                                                        <div class="btn-group" data-toggle="buttons">
+                                                            <label class="btn btn-sm btn-primary btn-rounded btn-table">
+                                                                <input class="option1" type="radio" name="options" id="option1">&mdash;
+                                                            </label>
+                                                            <label class="btn btn-sm btn-primary btn-rounded btn-table">
+                                                                <input class="option2" type="radio" name="options" id="option2">+
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    {% if product.availableOffer is null %}
+                                                        <td class="price" style="padding: 0;vertical-align: middle;" >{{ cart[product.id] * product.price}} TND</td>
+                                                    {% else %}
+                                                        <td class="price" style="padding: 0;vertical-align: middle;" >{{cart[product.id] *((product.price*(100-product.availableOffer.percent))/100)}} TND</td>
+                                                    {% endif %}
+
+                                                    <td style="padding: 10px;vertical-align: middle;">
+                                                        <button OnClick="removeFromCart({{product.id}});" type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Remove item">X
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                              <tr>
+                        <td colspan="3"></td>
+                        <td>
+                            <h4><strong>Total</strong></h4></td>
+                        <td>
+                            <h4><strong>1200$</strong></h4></td>
+                        <td colspan="3"><button onclick="{{path('command')}}" type="button" class="btn btn-primary">Complete purchase  <i class="fa fa-angle-right right"></i></button></td>
+                    </tr>
+
+                                        </tbody>
+                                        <!--/Table body-->
+                                    </table>
+                                    {% if products|length==0 %}
+                                        <div id="empty">vous n'avez aucun produit dans votre liste de souhaits</div>
+                                    {% else %}
+                                        <div class="invisibl" id="empty">vous n'avez aucun produit dans votre liste de souhaits</div>
+                                    {% endif %}
+                                </div>
+                                <!--/Shopping Cart table-->
+
+                                <!-- /.Live preview-->
+
+
+
+                            </section>  </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+
+{% block javascript %}
+
+    {{parent()}}
+    <script>
+
+        function removeFromCart($id) {
+
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '../app_dev.php/removecart/' + $id,
+                beforeSend: function (xhr) {
+
+                },
+                success: function (data) {
+
+                    $('#' + $id).remove();
+                    console.log(data.empty);
+                    if (data.empty == 0) {
+                        jQuery('#empty').removeClass('invisibl');
+                    } else {
+                        jQuery('#empty').addClass('invisibl');
+                    }
+                }
+            });
+        }
+
+
+
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".option2").click(function () {
+
+                $id_product = $(this).parent().parent().parent().parent().attr('id');
+                $qte = $(this).parent().parent().parent().find('span').html();
+                var newQty = parseInt($qte) + 1;
+
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '../app_dev.php/updateQty/' + $id_product + '/' + newQty,
+                    beforeSend: function (xhr) {
+                        console.log("before");
+                    },
+                    success: function (data) {
+                        console.log("after");
+                        // show new qty
+
+
+                    }
+                });
+
+                $(this).parent().parent().parent().find('span').html("" + newQty);
+                //update total price
+                $unitPrice = $(this).parent().parent().parent().parent().find('.unitPrice').html();
+                var totalPrice = newQty * parseFloat($unitPrice);
+                $(this).parent().parent().parent().parent().find('.price').html("" + totalPrice.toFixed(2) + "TND");
+
+
+                // update quantity
+
+            });
+
+
+            $(".option1").click(function () {
+                $id_product = $(this).parent().parent().parent().parent().attr('id');
+                $qte = $(this).parent().parent().parent().find('span').html();
+                var newQty = parseInt($qte) - 1;
+                if ($qte !== '1') {
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '../app_dev.php/updateQty/' + $id_product + '/' + newQty,
+                        beforeSend: function (xhr) {
+                           
+                        },
+                        success: function (data) {
+
+                        }
+                    });
+
+
+
+
+
+
+
+
+
+
+
+                    $(this).parent().parent().parent().find('span').html("" + newQty);
+
+
+                    $unitPrice = $(this).parent().parent().parent().parent().find('.unitPrice').html();
+
+                    //update total price
+                    var totalPrice = newQty * parseFloat($unitPrice);
+                    $(this).parent().parent().parent().parent().find('.price').html("" + totalPrice.toFixed(2) + "TND");
+
+                }
+            });
+
+
+        });
+
+
+    </script>
+
+{% endblock %}

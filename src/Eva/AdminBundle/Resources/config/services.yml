@@ -1,0 +1,4 @@
+services:
+#    eva_admin.example:
+#        class: Eva\AdminBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

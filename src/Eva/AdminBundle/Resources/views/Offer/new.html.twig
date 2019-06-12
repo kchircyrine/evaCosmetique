@@ -1,0 +1,59 @@
+{% extends "::base.html.twig" %}
+
+{% block body -%}
+    <div class="modal-dialog">
+        <div class="modal-content widget tasks-widget">
+            <div class="modal-header widget-head br-green">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 class="modal-title">Nouvel Offre</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        {{ form_start(form) }}
+                        <div class="col-lg-12">
+                            {{ form_label(form.percent ,null, {'label_attr': {'class': 'control-label'}})}}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form_widget(form.percent,{'attr': {'class': 'form-control percent','placeholder': "00%",'data-required':'true'}}) }}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form_errors(form.percent) }}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form_label(form.dateStart ,null, {'label_attr': {'class': 'control-label'}})}}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form_widget(form.dateStart,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form_label(form.dateEnd ,null, {'label_attr': {'class': 'control-label'}})}}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form_widget(form.dateEnd,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form_label(form.products ,null, {'label_attr': {'class': 'control-label'}})}}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form_widget(form.products,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form_errors(form.products) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" aria-hidden="true">Annuler</button>
+                {{ form_widget(form.submit,{'attr': {'class': 'btn btn-success btn-sm'}}) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+
+{% endblock %}
+

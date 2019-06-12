@@ -1,0 +1,162 @@
+{% extends 'EvaClientBundle:Layout:layout2.html.twig' %}
+{% block detail %}
+    <div id="maincontainer">
+        <section id="login">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Home</a>
+                        <span class="divider">/</span>
+                    </li>
+                    <li>
+                        <a href="#">Account</a>
+                        <span class="divider">/</span>
+                    </li>
+                    <li class="active"> My Wishlist</li>
+                </ul>
+                <div class="row">
+
+                    <!-- Account Login-->
+                    <div class="span9">
+                        <h1 class="headingmain"><span>My Wish List</span></h1>
+                        <div class="cart-info">
+                            <table id="wishlist" class="table table-striped table-bordered">
+                                <tr>
+                                    <th class="image">Image</th>
+                                    <th  class="name">Nom produit</th>
+                                    <th class="model">Prix</th>
+                                    <th class="price">Marque</th>
+                                    <th class="quantity">Stock</th>
+                                    <th class="total">Action</th>
+                                </tr>
+                                {% for product in products %}
+                                    <tr id="{{product.id}}">
+                                        <td class="image"><a href="#"><img title="product" alt="product" src="{{app.request.basepath}}/uploads/product/{{product.defaultImage.url}}" height="130px" width="130px"></a></td>
+                                        <td class="name"><a href="#">{{product.name}}</a></td>
+                                        <td class="model">{{product.price}} TND</td>
+                                        <td class="price">{{product.marque.name}}</td>
+                                        <td class="quantity">In Stock </td>
+                                        <td class="total"><a OnClick="addToCart({{product.id}});" href="#"><img class="tooltip-test" data-original-title="Ajout au panier" src="{{asset('bundles/evaclient/img/addcart.png')}}" alt=""></a>
+                                        <a OnClick="removeFromWishlist({{product.id}});" href="#"><img class="tooltip-test" data-original-title="Supprimer"  src="{{asset('bundles/evaclient/img/remove.png')}}" alt=""></a></td>
+                                    </tr>
+                                {% endfor %}
+
+
+
+                            </table>
+                                {% if products|length==0 %}
+                                <div id="empty">vous n'avez aucun produit dans votre liste de souhaits</div>
+                                {% else %}
+                                    <div class="invisibl" id="empty">vous n'avez aucun produit dans votre liste de souhaits</div>
+                                {% endif %}
+                                
+                                <a style="margin-top:20px" href="#" class="btn btn-success pull-right">Continue</a>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Start-->
+                    <div class="span3">
+                        <aside>
+                            <div class="sidewidt">
+                                <h1 class="heading1"><span>Account</span></h1>
+                                <ul class="nav nav-list categories">
+                                    <li>
+                                        <a href="#"> My Account</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Edit Account</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Password</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Wish List</a>
+                                    </li>
+                                    <li><a href="#">Order History</a>
+                                    </li>
+                                    <li><a href="#">Downloads</a>
+                                    </li>
+                                    <li><a href="#">Returns</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"> Transactions</a>
+                                    </li>
+                                    <li>
+                                        <a href="category.html">Newsletter</a>
+                                    </li>
+                                    <li>
+                                        <a href="category.html">Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                    <!-- Sidebar End-->
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    
+    {{parent()}}
+    <script>
+
+
+                            function removeFromWishlist($id) {   
+                                console.log("************");
+                                $.ajax({
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    url: '../app_dev.php/removewishlist/' + $id,
+                                    beforeSend: function (xhr) {
+                                        
+                                    },
+                                    success: function (data) {
+                                     console.log("ca charge");
+                                    $('#'+$id).remove();
+                                    console.log(data.empty);
+                                        if(data.empty==0){
+                                          jQuery('#empty').removeClass('invisibl');
+                                        }
+                                        else{
+                                             jQuery('#empty').addClass('invisibl');
+                                        }
+                                    }
+                                }); 
+                            }
+                            </script>
+                            
+                            
+                            
+                            <script>
+
+
+                            function addToCart($id) {   
+                                $.ajax({
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    url: '../app_dev.php/wishlistToCart/' + $id,
+                                    beforeSend: function (xhr) {
+                                        
+                                    },
+                                    success: function (data) {
+                                     console.log("ca charge");
+                                    $('#'+$id).remove();
+                                    console.log(data.empty);
+                                        if(data.empty==0){
+                                          jQuery('#empty').removeClass('invisibl');
+                                        }
+                                        else{
+                                             jQuery('#empty').addClass('invisibl');
+                                        }
+                                    }
+                                }); 
+                            }
+                            </script>
+                            
+                            
+                            
+
+{% endblock %}

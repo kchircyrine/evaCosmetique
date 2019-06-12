@@ -1,0 +1,30 @@
+offer:
+    path:     /
+    defaults: { _controller: "EvaAdminBundle:Offer:index" }
+
+offer_show:
+    path:     /{id}/show
+    defaults: { _controller: "EvaAdminBundle:Offer:show" }
+
+offer_new:
+    path:     /new
+    defaults: { _controller: "EvaAdminBundle:Offer:new" }
+
+offer_create:
+    path:     /create
+    defaults: { _controller: "EvaAdminBundle:Offer:create" }
+    methods:  POST
+
+offer_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EvaAdminBundle:Offer:edit" }
+
+offer_update:
+    path:     /{id}/update
+    defaults: { _controller: "EvaAdminBundle:Offer:update" }
+    methods:  [POST, PUT]
+
+offer_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EvaAdminBundle:Offer:delete" }
+    methods:  [POST, DELETE]

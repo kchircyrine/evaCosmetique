@@ -1,0 +1,86 @@
+eva_client_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: EvaClientBundle:Default:index }
+
+
+homepage:
+    path:     /accueil
+    defaults: { _controller: EvaClientBundle:Home:homePage }
+    
+    
+#*********************** verify_email_exists **************************   
+verify_email_exists:
+    path:   /register/email/{email}
+    defaults: { _controller: EvaClientBundle:User:emailExist }
+    
+    
+#*********************** add to cart **************************   
+add_cart:
+    path:   /addcart/{id}
+    defaults: { _controller: EvaClientBundle:Cart:add }
+    
+    
+    
+#*********************** show cart **************************   
+show_cart:
+    path:   /showcart
+    defaults: { _controller: EvaClientBundle:Cart:show }
+    
+    
+
+
+#*********************** detail product **************************   
+show_detail:
+    path:   /detail/{id}
+    defaults: { _controller: EvaClientBundle:Product:showDetail }
+    
+    
+    
+#*********************** show wishlist **************************   
+show_wishlist:
+    path:   /wishlist
+    defaults: { _controller: EvaClientBundle:WishList:show }
+    
+
+
+#*********************** add to wishlist **************************   
+add_wishlist:
+    path:   /addwishlist/{id}
+    defaults: { _controller: EvaClientBundle:WishList:add }
+    
+    
+
+#*********************** remove from wishlist **************************   
+remove_wishlist:
+    path:   /removewishlist/{id}
+    defaults: { _controller: EvaClientBundle:WishList:remove }
+    
+    
+    
+#*********************** move from wishlist to cart **************************   
+wishlist_to_cart:
+    path:   /wishlistToCart/{id}
+    defaults: { _controller: EvaClientBundle:WishList:moveToCart }
+    
+    
+#*********************** remove from cart **************************   
+remove_cart:
+    path:   /removecart/{id}
+    defaults: { _controller: EvaClientBundle:Cart:remove }
+    
+    
+#*********************** update cart **************************   
+update_cart:
+    path:   /updateQty/{id}/{qte}
+    defaults: { _controller: EvaClientBundle:Cart:updateQty }
+    
+    
+#*********************** signIn **************************   
+signIn:
+    path:   /signin
+    defaults: { _controller: EvaClientBundle:User:signIn }
+    
+#*********************** command **************************   
+command:
+    path:   /command
+    defaults: { _controller: EvaClientBundle:Command:addCommand }

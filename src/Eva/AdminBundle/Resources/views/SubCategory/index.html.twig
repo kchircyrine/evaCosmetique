@@ -1,0 +1,82 @@
+{% extends 'EvaAdminBundle:Layout:layout.html.twig' %}
+{%block title %}
+    <h2><i class="fa fa-desktop lblue"></i>Gestion des Sous-Catégories</h2>
+{% endblock%}
+{% block body -%}
+    <div class="main-content">
+        <div class="container">
+            <div class="page-content">
+                <!-- Heading -->
+                <div class="single-head">
+                    <!-- Heading -->
+                    <h3 class="pull-left"><i class="fa fa-table purple"></i>Liste des Sous-Catégories</h3>                   
+                    <a href="#addModal"  class="btn btn-success btn-sm pull-right" data-toggle="modal" >
+                        <i class="fa fa-plus-circle"></i>Nouvelle Sous-Catégories</a>
+                    <div class="clearfix"></div>
+                    <!-- Add Modal -->
+                    <div id="addModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
+                        {{ render(controller('EvaAdminBundle:SubCategory:new'))  }}
+                    </div>
+                </div>
+                <!-- Table Page -->
+                <div class="page-tables">
+                    <!-- Table -->
+                    <div class="table-responsive">
+
+                        <table  cellpadding="0" cellspacing="0" border="0" id="data-table" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Image</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entity in entities %}
+                                    <tr>
+                                        <td>{{ entity.id }}</a></td>
+                                        <td>{{ entity.name }}</td>
+                                        <td><img class="img-responsive img-thumbnail" src="{{app.request.basepath}}/uploads/subCategory/{{entity.image}}"
+                                                 width="50" height="50"/>{{ entity.image }}</td>
+                                        <td>
+                                            <a href="#detailModal{{entity.id}}" class="btn-info btn-sm" data-toggle="modal">
+                                                <i class="fa fa-eye  "></i> Details</a>
+                                            <div id="detailModal{{entity.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                {{ render(controller('EvaAdminBundle:SubCategory:show',{ 'id': entity.id } ))  }}
+                                            </div>
+                                            <a href="#editModal{{entity.id}}"  class="btn-warning btn-sm" data-toggle="modal">
+                                                <i class="fa fa-edit "></i> Edit</a>
+                                            <div id="editModal{{entity.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                {{ render(controller('EvaAdminBundle:SubCategory:edit',{ 'id': entity.id } ))  }}
+                                            </div>
+                                            <a href="#deleteModal{{entity.id}}"  class="btn-danger btn-sm" data-toggle="modal">
+                                                <i class="fa fa-trash-o"></i> Delete</a>
+                                            <div id="deleteModal{{entity.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                {{ render(controller('EvaAdminBundle:SubCategory:remove',{ 'id': entity.id } ))  }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        /* ****************************************** */
+        /* Data Table JS */
+        /* ****************************************** */
+
+        $(document).ready(function () {
+            $('#data-table').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+        });
+
+    </script>
+{% endblock %}

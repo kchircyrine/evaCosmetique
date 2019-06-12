@@ -1,0 +1,168 @@
+{% extends 'EvaAdminBundle:Layout:layout.html.twig' %}
+{%block title %}
+    <h2><i class="fa fa-desktop lblue"></i>Gestion des Réclamations</h2>
+{% endblock%}
+{% block body -%}
+    <div class="page-content">
+
+        <!-- Heading -->
+        <div class="single-head">
+            <!-- Heading -->
+            <h3 class="pull-left"><i class="fa fa-inbox green"></i> Les Réclamations</h3>
+            <div class="clearfix"></div>
+        </div>
+
+        <!-- Inbox page content -->
+        <div class="page-inbox">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Side bar mail navigation menu -->
+                    <ul class="nav nav-tabs nav-justified">
+                        <li><a href="#ttReclamation" data-toggle="tab">Toutes les Réclamations <span class="badge badge-inverse pull-right">{{ render(controller('EvaAdminBundle:Reclamation:countAll'))  }}</span></a></li>
+                        <li class="active"><a href="#penReclamation" data-toggle="tab">Réclamations en Attente <span class="badge badge-inverse pull-right">{{ render(controller('EvaAdminBundle:Reclamation:countPending'))  }}</span></a></li>
+                        <li><a href="#doneReclamation" data-toggle="tab">Réclamations Réglées <span class="badge badge-inverse pull-right">{{ render(controller('EvaAdminBundle:Reclamation:countDone'))  }}</span></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-12 tab-content">
+                    <!-- Page inbox mails -->
+                    <div id="ttReclamation" class="inbox-mail table-responsive tab-pane fade ">
+                        <!-- Inbox table -->
+                        <table class="table table-hover" cellpadding="0" cellspacing="0" border="0" id="data-table1" width="100%">
+                            <!-- Table head -->
+                            <thead>
+                                <tr>
+                                    <!-- Mail select box -->
+                                    <th>Mail du Client</th>
+                                    <th>Sujet</th>
+                                    <th>Contenu</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <!-- Table body -->
+                            <tbody>
+                                {%for entity in entities %}
+                                    <tr {%if  entity.response %} class="m-read" {%else%} class="m-unread" {%endif%}>
+                                        <!-- Mail check box -->
+                                        <td>{{ entity.user.email }}</td>
+                                        <!-- Sender information -->
+                                        <td><a href="{{ path('reclamation_edit', { 'id': entity.id }) }}" class="new-unread">{{ entity.subject }}</a></td>
+                                        <td>
+                                            <!-- Mail subject -->
+                                            <a href="{{ path('reclamation_edit', { 'id': entity.id }) }}"><span>The important report about your coumpany.</span></a>&nbsp;
+                                            <!-- Mail message -->
+                                            <p>{{ entity.content }}</p>
+                                        </td>
+                                        <!-- Time of mail receive -->
+                                        <td>{{ entity.dateCreation | date('Y-m-d')  }}</td>
+                                        <td><a class='btn btn-info' href='{{ path('reclamation_edit', { 'id': entity.id }) }}'>Répondre</a></td>
+                                    </tr>
+                                {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="penReclamation" class="inbox-mail table-responsive tab-pane fade in active">
+                        <!-- Inbox table -->
+                        <table class="table table-hover" cellpadding="0" cellspacing="0" border="0" id="data-table2" width="100%">
+                            <!-- Table head -->
+                            <thead>
+                                <tr>
+                                    <!-- Mail select box -->
+                                    <th>Mail du Client</th>
+                                    <th>Sujet</th>
+                                    <th>Contenu</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <!-- Table body -->
+                            <tbody>
+                                {%for entity in entities %}
+                                    {%if not entity.response %}
+                                    <tr  class="m-unread">
+                                        <!-- Mail check box -->
+                                        <td>{{ entity.user.email }}</td>
+                                        <!-- Sender information -->
+                                        <td><a href="{{ path('reclamation_edit', { 'id': entity.id }) }}" class="new-unread">{{ entity.subject }}</a></td>
+                                        <td>
+                                            <!-- Mail subject -->
+                                            <a href="{{ path('reclamation_edit', { 'id': entity.id }) }}"><span>The important report about your coumpany.</span></a>&nbsp;
+                                            <!-- Mail message -->
+                                            <p>{{ entity.content }}</p>
+                                        </td>
+                                        <!-- Time of mail receive -->
+                                        <td>{{ entity.dateCreation | date('Y-m-d')  }}</td>
+                                        <td><a class='btn btn-info' href='{{ path('reclamation_edit', { 'id': entity.id }) }}'>Répondre</a></td>
+                                    </tr>
+                                    {%endif%}
+                                {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="doneReclamation" class="inbox-mail table-responsive tab-pane fade">
+                        <!-- Inbox table -->
+                        <table class="table table-hover" cellpadding="0" cellspacing="0" border="0" id="data-table3" width="100%">
+                            <!-- Table head -->
+                            <thead>
+                                <tr>
+                                    <!-- Mail select box -->
+                                    <th>Mail du Client</th>
+                                    <th>Sujet</th>
+                                    <th>Contenu</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <!-- Table body -->
+                            <tbody>
+                                {%for entity in entities %}
+                                    {%if entity.response %}
+                                    <tr class="m-read" >
+                                        <!-- Mail check box -->
+                                        <td>{{ entity.user.email }}</td>
+                                        <!-- Sender information -->
+                                        <td><a href="{{ path('reclamation_edit', { 'id': entity.id }) }}" class="new-unread">{{ entity.subject }}</a></td>
+                                        <td>
+                                            <!-- Mail subject -->
+                                            <a href="{{ path('reclamation_edit', { 'id': entity.id }) }}"><span>The important report about your coumpany.</span></a>&nbsp; <i class="fa fa-paperclip"></i>
+                                            <!-- Mail message -->
+                                            <p>{{ entity.content }}</p>
+                                        </td>
+                                        <!-- Time of mail receive -->
+                                        <td>{{ entity.dateCreation | date('Y-m-d')  }}</td>
+                                    </tr>
+                                    {%endif%}
+                                {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        /* ****************************************** */
+        /* Data Table JS */
+        /* ****************************************** */
+
+        $(document).ready(function () {
+            $('#data-table1').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+            $('#data-table2').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+            $('#data-table3').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+        });
+
+    </script>
+{% endblock %}
+
+

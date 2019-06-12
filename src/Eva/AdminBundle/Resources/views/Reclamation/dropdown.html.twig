@@ -1,0 +1,14 @@
+{% extends "::base.html.twig" %}
+
+{%block body %}
+{%for entity in entities%}
+<li class='m-unread'><a href="{{ path('reclamation_edit', { 'id': entity.id }) }}">
+        <!-- Title -->
+        {{ entity.subject}} <i class="fa fa-reply pull-right"></i>
+        <!-- Para -->
+        <span>{{ entity.content|length > 50 ? entity.content|slice(0, 40) ~ '...' : entity.content  }}</span>
+        <div class="clearfix"></div>
+    </a>
+</li>
+{%endfor%}
+{%endblock%}

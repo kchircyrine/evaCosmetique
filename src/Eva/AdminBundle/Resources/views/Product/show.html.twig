@@ -1,0 +1,65 @@
+{% extends '::base.html.twig' %}
+{% block body -%}
+    <div class="modal-dialog">
+        <div class="modal-content widget tasks-widget">
+            <div class="modal-header widget-head br-lblue">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 class="modal-title">Detail Produit</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <Label class="col-lg-12">Id</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.id }}"/>
+                        <Label class="col-lg-12">Nom</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.name }}"/>
+                        <Label class="col-lg-12">Référence</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.reference }}"/>
+                        <Label class="col-lg-12">Quantité</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.quantity }}"/>
+                        <Label class="col-lg-12">Description</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.description }}"/>
+                        <Label class="col-lg-12">Mode d'emploi</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.userGuide }}"/>
+                        <Label class="col-lg-12">Composition</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.composition }}"/>
+                        <Label class="col-lg-12">Prix</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.price }}"/>
+                        <Label class="col-lg-12">Date de création</Label>
+                        <input class="col-lg-12" disabled="true"  value="{% if entity.dateCreation %}{{ entity.dateCreation|date('Y-m-d') }}{% endif %}"/>
+                        <Label class="col-lg-12">Vidéo</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.video }}"/>
+                        <video class="center-block" width="100" height="100" controls >
+                            <source src="{{app.request.basepath}}/uploads/videos/{{ entity.video }}">
+                        </video>
+                        <Label class="col-lg-12">Nombre de Vente</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.nbSales }}"/>
+                        <Label class="col-lg-12">Sous-Catégorie</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.subCategory }}"/>
+                        <Label class="col-lg-12">Marque</Label>
+                        <input class="col-lg-12" disabled="true"  value="{{ entity.marque }}"/>
+                        {#{%if entity.tags%}
+                            <Label class="col-lg-12">Tags</Label>
+                                {%for tag in  entity.tags%}
+                                <ul>
+                                    <li class="col-lg-12">{{ tag }}</li>
+                                </ul>
+                            {%endfor%}
+                        {%endif%}#}
+                        {%if entity.offers%}
+                            <Label class="col-lg-12">Offres</Label>
+                                {%for offer in  entity.offers%}
+                                <ul>
+                                    <li class="col-lg-12">{{ offer }}</li>
+                                </ul>
+                            {%endfor%}
+                        {%endif%}                      
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" aria-hidden="true">Fermer</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+eva_admin_carousselimage:
+    resource: "@EvaAdminBundle/Resources/config/routing/carousselimage.yml"
+    prefix:   /carousselimage
+
+eva_admin_reclamation:
+    resource: "@EvaAdminBundle/Resources/config/routing/reclamation.yml"
+    prefix:   /reclamation
+
+eva_admin_tag:
+    resource: "@EvaAdminBundle/Resources/config/routing/tag.yml"
+    prefix:   /tag
+
+eva_admin_subcategory:
+    resource: "@EvaAdminBundle/Resources/config/routing/subcategory.yml"
+    prefix:   /subcategory
+
+eva_admin_product:
+    resource: "@EvaAdminBundle/Resources/config/routing/product.yml"
+    prefix:   /product
+
+eva_admin_category:
+    resource: "@EvaAdminBundle/Resources/config/routing/category.yml"
+    prefix:   /category
+
+eva_admin_marque:
+    resource: "@EvaAdminBundle/Resources/config/routing/marque.yml"
+    prefix:   /marque
+
+eva_admin_offer:
+    resource: "@EvaAdminBundle/Resources/config/routing/offer.yml"
+    prefix:   /offer
+
+eva_admin_homepage:
+    path:     /admin
+    defaults: { _controller: EvaAdminBundle:Default:index }

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Title here -->
+        <title>Dashboard - EvaCosmétique</title>
+        <!-- Description, Keywords and Author -->
+        <meta name="description" content="Your description">
+        <meta name="keywords" content="Your,Keywords">
+        <meta name="author" content="ResponsiveWebInc">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Styles -->
+        <!-- Bootstrap CSS -->
+        <link href="{{asset('bundles/evaadmin/css/bootstrap.min.css')}}" rel="stylesheet">
+        <!-- jQuery gritter -->
+        <link href="{{asset('bundles/evaadmin/css/jquery.gritter.css')}}" rel="stylesheet">
+        <!-- Font awesome CSS -->
+        <link href="{{asset('bundles/evaadmin/css/font-awesome.min.css')}}" rel="stylesheet">
+        <!-- Custom Color CSS -->
+        <link href="{{asset('bundles/evaadmin/css/less-style.css')}}" rel="stylesheet">	
+        <!-- Custom CSS -->
+        <link href="{{asset('bundles/evaadmin/css/style.css')}}" rel="stylesheet">
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="#">
+    </head>
+
+    <body>
+        <div class="outer">			
+            <!-- Sidebar starts -->
+            <div class="sidebar">			
+                <div class="sidey">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <h2><a href="{{path('eva_admin_homepage')}}"><small>EvaCosmetiques</small></a></h2>
+                        <h3><small>l'esprit de beauté</small></h3>
+                    </div>
+                    <!-- Sidebar navigation starts -->
+                    <!-- Responsive dropdown -->
+                    <div class="sidebar-dropdown"><a href="#" class="br-red"><i class="fa fa-bars"></i></a></div>
+                    <div class="side-nav">
+                        <div class="side-nav-block">
+                            <h4>Menu</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="{{path('product')}}">Produits</a></li>
+                                <li><a href="{{path('category')}}">Catégories</a></li>
+                                <li><a href="{{path('subcategory')}}">Sous-Catégories</a></li>
+                                <li><a href="{{path('marque')}}">Marques</a></li>
+                                <li><a href="{{path('tag')}}">Tags</a></li>
+                                <li><a href="{{path('offer')}}">Offres</a></li>     
+                                <li><a href="{{path('reclamation')}}">Réclamations</a></li>    
+                                <li><a href="{{path('carousselimage')}}">Carouselle</a></li> 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar navigation ends -->
+            </div>
+        </div>
+        <!-- Sidebar ends -->
+        <!-- Mainbar starts -->
+        <div class="mainbar">
+            <!-- Mainbar head starts -->
+            <div class="main-head">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <!-- Page title -->
+                            {% block title %}
+                            {%endblock%}
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <!-- Search block -->
+                            <div class="head-search">
+                                <form class="form" role="form">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-4 hidden-xs">
+                            <!-- Notifications -->
+                            <div class="head-noty text-center">
+                                <!-- Notifications -->
+                                <div class="dropdown">
+                                    <a href="#" id="notifications" data-toggle="dropdown" class="mhead-icon" ><i class="fa fa-bell"></i> <span class="label label-info">5</span></a>
+                                    <!-- Dropdown -->
+                                    <ul class="dropdown-menu" role="button" aria-labelledby="notifications">
+
+                                        <!-- Dropdown menu head -->
+                                        <li class="dropdown-head">
+                                            Notifications <span class="label label-info pull-right">5</span>
+                                        </li>
+                                        <!-- Content -->
+                                        <li><a href="#">
+                                                <!-- Colored icon with text and time -->
+                                                <i class="fa fa-user"></i> New User Registered <b class="pull-right">5 mins ago</b>
+                                                <div class="clearfix"></div>
+                                            </a></li>
+                                        <li><a href="#">
+                                                <i class="fa fa-shopping-cart"></i> New Order for Dress <b class="pull-right">10 mins ago</b>
+                                                <div class="clearfix"></div>
+                                            </a></li>
+                                        <li><a href="#">
+                                                <i class="fa fa-sign-out"></i> User Ravi Kumar Sign Out <b class="pull-right">20 hr ago</b>
+                                                <div class="clearfix"></div>
+                                            </a></li>
+                                        <li><a href="#">
+                                                <i class="fa fa-envelope"></i> New Message from Ravi <b class="pull-right">1 day ago</b>
+                                                <div class="clearfix"></div>
+                                            </a></li>
+                                        <li><a href="#">
+                                                <i class="fa fa-laptop"></i> Full Backup Completed <b class="pull-right">2 day ago</b>
+                                                <div class="clearfix"></div>
+                                            </a></li>
+                                        <li class="dropdown-foot text-center">
+                                            <a href="#">View All</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Messages -->
+                                <div class="dropdown">
+                                    <a href="#" id="messages" data-toggle="dropdown" class="mhead-icon" ><i class="fa fa-envelope"></i> <span class="label label-danger">{{ render(controller('EvaAdminBundle:Reclamation:countPending'))  }}</span></a>
+                                    <ul class="dropdown-menu" role="button" aria-labelledby="messages">
+                                        <!-- Dropdown menu head -->
+                                        <li class="dropdown-head">
+                                            Réclamations <span class="label label-danger pull-right">{{ render(controller('EvaAdminBundle:Reclamation:countPending'))  }}</span>
+                                        </li>
+                                        <!-- Content -->
+                                        {{ render(controller('EvaAdminBundle:Reclamation:dropDownList'))  }}
+                                        <li class="dropdown-foot text-center">
+                                            <a href="{{ path('reclamation') }}">Afficher Tout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>	
+                </div>
+            </div>
+            <!-- Mainbar head ends -->
+            <div class="main-content">
+                <div class="container">
+                    {% block body -%}
+
+                    {%  endblock %}
+                </div>
+            </div>
+        </div>
+        <!-- Mainbar ends -->
+        <div class="clearfix"></div>
+    </div>
+    <!-- Javascript files -->
+    <!-- jQuery -->
+    <script src="{{asset('bundles/evaadmin/js/jquery.js')}}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{{asset('bundles/evaadmin/js/bootstrap.min.js')}}"></script>
+    <!-- jQuery UI -->
+    <script src="{{asset('bundles/evaadmin/js/jquery-ui.min.js')}}"></script>
+    <!-- Date Time Picker JS -->
+    <script src="{{asset('bundles/evaadmin/js/bootstrap-datetimepicker.min.js')}}"></script>	
+    <!-- Bootstrap wysihtml5 JS -->
+    <script src="{{asset('bundles/evaadmin/js/wysihtml5-0.3.0.js')}}"></script>
+    <script src="{{asset('bundles/evaadmin/js/prettify.js')}}"></script>
+    <script src="{{asset('bundles/evaadmin/js/bootstrap-wysihtml5.min.js')}}"></script>
+    <!-- jQuery flot -->
+    <script src="{{asset('bundles/evaadmin/js/jquery.flot.min.js')}}"></script>     
+    <script src="{{asset('bundles/evaadmin/js/jquery.flot.stack.min.js')}}"></script>
+    <script src="{{asset('bundles/evaadmin/js/jquery.flot.pie.min.js')}}"></script>
+    <script src="{{asset('bundles/evaadmin/js/jquery.flot.resize.min.js')}}"></script>
+    <!-- Validate JS -->
+    <script src="{{asset('bundles/evaadmin/js/jquery.validate.js')}}"></script>
+    <!-- Form wizard steps  JS -->
+    <script src="{{asset('bundles/evaadmin/js/jquery.steps.min.js')}}"></script>
+    <!-- jQuery Knob -->
+    <script src="{{asset('bundles/evaadmin/js/jquery.knob.js')}}"></script>
+    <!-- jQuery Sparklines -->
+    <script src="{{asset('bundles/evaadmin/js/jquery.sparklines.js')}}"></script>
+    <!-- jQuery slim scroll -->
+    <script src="{{asset('bundles/evaadmin/js/jquery.slimscroll.min.js')}}"></script>
+    <!-- Data Tables JS -->
+    <script src="{{asset('bundles/evaadmin/js/jquery.dataTables.min.js')}}"></script>	
+    <!-- Pretty Photo JS -->
+    <script src="{{asset('bundles/evaadmin/js/jquery.prettyPhoto.js')}}"></script>	
+    <!-- Rate It JS -->
+    <script src="{{asset('bundles/evaadmin/js/jquery.rateit.min.js')}}"></script>	
+    <!-- Full calendar -->
+    <script src="{{asset('bundles/evaadmin/js/moment.min.js')}}"></script>
+    <script src="{{asset('bundles/evaadmin/js/fullcalendar.min.js')}}"></script>
+    <!-- Respond JS for IE8 -->
+    <script src="{{asset('bundles/evaadmin/js/respond.min.js')}}"></script>
+    <!-- HTML5 Support for IE -->
+    <!-- Custom JS -->
+    <script src="{{asset('bundles/evaadmin/js/custom.js')}}"></script>
+
+    <script src="{{asset('bundles/evaadmin/js/html5shiv.js')}}"></script>
+
+    {% block script %}
+
+    {% endblock %}
+
+</body>	
+</html>

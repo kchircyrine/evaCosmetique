@@ -1,0 +1,134 @@
+<html lang="en">
+    <head>
+        <title>Sales Inquiry Form Responsive Widget Template| Home :: W3layouts</title>
+        <!-- Meta tag Keywords -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Sales Inquiry Form Responsive Widget Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+            function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!-- Meta tag Keywords -->
+        <!-- css files -->
+        <link href="{{asset('bundles/evaclient/css/register_style.css')}}" rel="stylesheet" type="text/css" media="all">
+        <!-- //css files -->
+        <!-- online-fonts -->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+    </head>
+    <body>
+        <!--header-->
+        <div class="agile-header">
+            <h1>Eva Cosmétiques</h1>
+            <p>If you have any queries on Sales please take a moment to fill up this form and one of our sales representative will contact you soon.</p>
+        </div>
+        <!--//header-->
+        <!--main-->
+        <div class="agileits-main">
+            <div class="wrap">
+
+
+
+
+
+                      
+
+
+                       
+                     
+
+
+
+                                    
+
+
+
+                        <ul>
+                            <li class="text">Adresse    </li>
+                            <li>{{form_widget(form.address.street)}}</li>
+                        </ul>  
+                        <span style="display:none;color:red" id= "error1">    Email is already present. </span>
+
+
+                        {{ form_errors(form) }}
+
+                        {{ form_rest(form) }}
+
+                        <div class="clear"></div>
+                        <div class="agile-submit">
+                            <input type="submit" value="submit">
+                        </div>
+
+                    </form>
+                </div>
+
+
+
+
+            </div>	
+        </div>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+        <script>
+
+            $(document).ready(function (e) {
+                $('.email').val('');
+                $('.email').on('blur', checkEmail);
+
+
+                function isNumber(evt) {
+                    evt = (evt) ? evt : window.event;
+                    var charCode = (evt.which) ? evt.which : evt.keyCode;
+                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        return false;
+                    }
+                    return true;
+                }
+
+
+                
+
+
+
+
+
+
+
+                function checkEmail() {
+                    var desiredEmail = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: 'http://localhost/EvaCosmetiques/web/app_dev.php/evacosmetique/register/email/' + desiredEmail,
+                        beforeSend: function (xhr) {
+                            // Console.log("ca charge");
+                        },
+                        success: function (data) {
+                            if (data.nb == '1') {
+                                $('#error1').css('display', 'block');
+                                $('.email').val(" ");
+
+                            } else {
+                                $('#error1').css('display', 'none');
+                            }
+
+
+
+                        }
+                    });
+                }
+
+
+
+            });
+
+
+        </script>
+    </body>
+</html>

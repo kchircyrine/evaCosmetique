@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Mirrored from ashobiz.dreamhosters.com/wrapbootstrap/barnie175/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 May 2017 01:03:07 GMT -->
+    <head>
+        {% block head %}
+
+            <title>{% block title %}Login Page - Eva{% endblock %}</title>
+            <!-- Description, Keywords and Author -->
+            <meta name="description" content="Your description">
+            <meta name="keywords" content="Your,Keywords">
+            <meta name="author" content="ResponsiveWebInc">
+
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <!-- Styles -->
+            <!-- Bootstrap CSS -->
+            <link href="{{asset('bundles/evaclient/login/css/bootstrap.min.css')}}" rel="stylesheet">
+            <!-- Font awesome CSS -->
+            <link href="{{asset('bundles/evaclient/login/css/font-awesome.min.css')}}" rel="stylesheet">	
+            <!-- Custom Color CSS -->
+            <link href="{{asset('bundles/evaclient/login/css/less-style.css')}}" rel="stylesheet">	
+            <!-- Custom CSS -->
+            <link href="{{asset('bundles/evaclient/login/css/style.css')}}" rel="stylesheet">
+
+            <!-- Favicon -->
+            <link rel="shortcut icon" href="#">
+
+        </head>
+    {% endblock %}
+    <body>
+
+        <div class="outer-page">
+
+            <!-- Login page -->
+            <div class="login-page">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#login" data-toggle="tab" class="br-lblue"><i class="fa fa-sign-in"></i> Sign In</a></li>
+                    <li><a href="#register" data-toggle="tab" class="br-lblue"><i class="fa fa-pencil"></i> Sign Up</a></li>
+
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="login">
+                        {% block login %}
+                             {{ render(controller('FOSUserBundle:Security:login'))  }}
+    
+                        {% endblock %}  
+
+                    </div>
+                    <div class="tab-pane fade" id="register">
+
+                        {% block register %}
+                            {{ render(controller('FOSUserBundle:Registration:register'))  }}
+                        {% endblock %} 
+                    </div>
+
+                </div>
+
+            </div>	
+
+        </div>
+        {% block javascript %} 
+
+            <script src="{{asset('bundles/evaclient/login/js/jquery.js')}}"></script>
+            <!-- Bootstrap JS -->
+            <script src="{{asset('bundles/evaclient/login/js/bootstrap.min.js')}}"></script>
+            <!-- Respond JS for IE8 -->
+            <script src="{{asset('bundles/evaclient/login/js/respond.min.js')}}"></script>
+            <!-- HTML5 Support for IE -->
+            <script src="{{asset('bundles/evaclient/login/js/html5shiv.js')}}"></script>
+        {% endblock %} 
+
+
+    </body>	
+
+    <!-- Mirrored from ashobiz.dreamhosters.com/wrapbootstrap/barnie175/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 May 2017 01:03:07 GMT -->
+</html>

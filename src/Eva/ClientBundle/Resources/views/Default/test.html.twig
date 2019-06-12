@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <title>www.esprit.tn</title>
+    </head>
+
+
+    <body>
+        <table>
+                <thead>
+                    <tr>
+                        <th>Référence</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>QTY</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <!--/Table head-->
+
+                <!--Table body-->
+                <tbody>
+                    {% for product in products %}
+                        <!--First row-->
+                        <tr>
+
+                            <td >
+                                <h5><strong>{{product.reference}}</strong></h5>
+                                <p class="text-muted">by {{product.marque.name}}</p>
+                            </td>
+                            <td >{{product.name}}</td>
+                            
+                            <td >
+                                <span class="qty">{{cart[product.id]}}</span>
+                               
+                            </td>
+                            
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td ></td>
+                        <td>
+                            <h4><strong>Total</strong></h4></td>
+                        <td>
+                            <h4><strong>1200$</strong></h4></td>
+                    </tr>
+
+                </tbody>
+                <!--/Table body-->
+            </table>
+    </body>
+</html>

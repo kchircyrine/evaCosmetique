@@ -1,0 +1,30 @@
+carousselimage:
+    path:     /
+    defaults: { _controller: "EvaAdminBundle:CarousselImage:index" }
+
+carousselimage_show:
+    path:     /{id}/show
+    defaults: { _controller: "EvaAdminBundle:CarousselImage:show" }
+
+carousselimage_new:
+    path:     /new
+    defaults: { _controller: "EvaAdminBundle:CarousselImage:new" }
+
+carousselimage_create:
+    path:     /create
+    defaults: { _controller: "EvaAdminBundle:CarousselImage:create" }
+    methods:  POST
+
+carousselimage_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EvaAdminBundle:CarousselImage:edit" }
+
+carousselimage_update:
+    path:     /{id}/update
+    defaults: { _controller: "EvaAdminBundle:CarousselImage:update" }
+    methods:  [POST, PUT]
+
+carousselimage_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EvaAdminBundle:CarousselImage:delete" }
+    methods:  [POST, DELETE]
